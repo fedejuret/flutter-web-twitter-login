@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:admin_dashboard/router/router.dart';
@@ -11,10 +12,13 @@ import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return ChangeNotifierProvider(
       create: (_) => LoginFormProvider(),
       child: Builder(builder: (context) {
-        final loginFormProvider = Provider.of<LoginFormProvider>(context);
+        final loginFormProvider =
+            Provider.of<LoginFormProvider>(context, listen: false);
 
         return Container(
           margin: EdgeInsets.only(top: 100),
@@ -61,7 +65,10 @@ class LoginView extends StatelessWidget {
                     ),
                     CustomOutlinedButton(
                       onPressed: () {
-                        loginFormProvider.validateForm();
+                        if (loginFormProvider.validateForm()) {
+                          authProvider.login(loginFormProvider.email,
+                              loginFormProvider.password);
+                        }
                       },
                       text: 'Ingresar',
                     ),

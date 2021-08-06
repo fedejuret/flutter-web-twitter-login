@@ -9,10 +9,6 @@ class LoginFormProvider extends ChangeNotifier {
   // String get email => this.email;
 
   validateForm() {
-    if (formKey.currentState!.validate()) {
-      print('Form valid ... Login');
-    } else {
-      print('Form not valid');
-    }
+    return formKey.currentState!.validate() ? true : false;
   }
 }

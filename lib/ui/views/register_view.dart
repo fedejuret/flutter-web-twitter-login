@@ -11,9 +11,10 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => new RegisterFormProvider(),
+      create: (_) => RegisterFormProvider(),
       child: Builder(builder: (context) {
-        final registerProvider = Provider.of<RegisterFormProvider>(context);
+        final registerProvider =
+            Provider.of<RegisterFormProvider>(context, listen: false);
 
         return Container(
           margin: EdgeInsets.only(top: 100),
@@ -22,6 +23,7 @@ class RegisterView extends StatelessWidget {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 370),
               child: Form(
+                key: registerProvider.formKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -77,7 +79,7 @@ class RegisterView extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     CustomOutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => registerProvider.validateForm(),
                       text: 'Crear Cuenta',
                     ),
                     SizedBox(height: 30),

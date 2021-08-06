@@ -82,7 +82,8 @@ class _DesktopBody extends StatelessWidget {
       height: size.height * 0.95,
       child: Row(
         children: [
-          BackgroundAuth(),
+          Expanded(child: BackgroundAuth()),
+
           // View Container
           Container(
             width: 600,
